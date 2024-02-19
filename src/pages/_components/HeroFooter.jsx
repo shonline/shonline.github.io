@@ -8,7 +8,7 @@ export default function HeroFooter({ children }) {
   return (
     <motion.div
       animate={{ opacity: [0, 1] }}
-      transition={{ delay: 1.5, duration: 1, ease: 'anticipate' }}
+      transition={{ delay: 0.5, duration: 1.5, ease: 'anticipate' }}
       style={{ opacity: opacity, y: y }}
       className="hidden sm:flex min-h-[10vmin] flex-wrap items-center justify-between mx-[5vw] absolute bottom-0 w-[90vw]"
     >

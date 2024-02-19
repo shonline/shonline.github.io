@@ -3,7 +3,7 @@ export default function Contact({ children, href }) {
     <div>
       <a
         href={href}
-        className="text-black transition block px-[1vmax] hover:bg-black hover:text-white"
+        className="block px-[1vmax] transition text-black hover:bg-black hover:text-white font-thin text-[clamp(1.5rem,5vmin,5rem)]"
       >
         {children}
       </a>

@@ -1,6 +1,6 @@
 export default function CardText({ children }) {
   return (
-    <div className="sm:text-[3vmin] text-[5vmin] font-extralight">
+    <div className="text-[clamp(0.9rem,3vmin,1.5rem)] font-extralight">
       {children}
     </div>
   );

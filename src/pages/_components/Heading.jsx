@@ -1,7 +1,7 @@
 export default function Heading({ children }) {
   return (
     <div
-      className="sm:text-[10vmin] text-[13vmin] font-['Viaoda_Libre']"
+      className="text-[clamp(1.7rem,9vmin,7rem)] font-['Viaoda_Libre']"
       data-scroll
       data-scroll-speed="-0.03"
     >

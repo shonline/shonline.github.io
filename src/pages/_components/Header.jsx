@@ -7,12 +7,12 @@ export default function Header({ children }) {
   const bgColor = useTransform(
     scrollY,
     [0, 100],
-    ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.5)']
+    ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 1)']
   );
   return (
     <motion.div
       animate={{ opacity: [0, 1] }}
-      transition={{ delay: 1, duration: 1.3, ease: 'anticipate' }}
+      transition={{ delay: 0.5, duration: 1.5, ease: 'anticipate' }}
       style={{
         minHeight: minHeight,
         backdropFilter: blur,
