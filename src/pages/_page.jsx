@@ -1,3 +1,4 @@
+import LocomotiveScroll from 'locomotive-scroll';
 import { motion } from 'framer-motion';
 
 import HeroSection from './_components/HeroSection';
@@ -25,6 +26,7 @@ import HeroScrollTo from './_components/HeroScrollTo';
 import HeroLink from './_components/HeroLink';
 
 export default function App() {
+  const locomotiveScroll = new LocomotiveScroll();
   const contacts = {
     tel: {
       number: '+79033095411',
