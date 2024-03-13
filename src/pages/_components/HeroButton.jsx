@@ -1,7 +1,7 @@
 import LocomotiveScroll from 'locomotive-scroll';
-const locomotiveScroll = new LocomotiveScroll();
 
 export default function HeroButton({ children, scrollTo }) {
+  const locomotiveScroll = new LocomotiveScroll();
   return (
     <div
       className="sm:block hidden border-l my-2 border-white"

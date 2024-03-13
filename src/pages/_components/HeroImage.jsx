@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
+import LocomotiveScroll from 'locomotive-scroll';
 
 export default function HeroImage({ src, alt }) {
+  const locomotiveScroll = new LocomotiveScroll();
   return (
     <motion.div
       initial={{ opacity: 0 }}
