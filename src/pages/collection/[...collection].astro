@@ -1,0 +1,106 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+export const getStaticPaths = (async () =>
+  (await getCollection('collection')).map((entry) => ({
+    params: { collection: entry.slug },
+    props: { entry },
+  }))) satisfies GetStaticPaths;
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{entry.data.title ? entry.data.title : entry.slug}</title>
+  </head>
+  <body class="font-['Montserrat'] flex flex-col justify-between items-center">
+    <section class="size-full py-[15vh]">
+      <section class="w-[min(100%,700px)] mx-auto flex flex-col gap-3 p-10">
+        {
+          entry.data.tag && (
+            <div class="flex flex-wrap gap-1">
+              {entry.data.tag.map((tag) => (
+                <div class="text-[0.7em] px-1.5 py-1 text-white bg-black rounded">
+                  {tag}
+                </div>
+              ))}
+            </div>
+          )
+        }
+        {
+          entry.data.date && (
+            <time class="text-[0.77em] opacity-30">
+              {new Date(entry.data.date).toLocaleDateString('en-GB')}
+            </time>
+          )
+        }
+        {
+          entry.data.author && (
+            <div class="flex flex-wrap text-[0.9em] italic opacity-50">
+              {entry.data.author.map((author) => (
+                <div>{author}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+              ))}
+            </div>
+          )
+        }
+        <article>
+          <Content />
+        </article>
+      </section>
+    </section>
+  </body>
+</html>
+
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Viaoda+Libre&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+  /* ::-webkit-scrollbar {
+    display: none;
+  } */
+  ::selection {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  article {
+    @apply prose text-black;
+  }
+  article * {
+    @apply text-black;
+  }
+  article a {
+    @apply underline-offset-[5px];
+  }
+  article blockquote {
+    @apply border-none px-[1em];
+  }
+  article blockquote p {
+    @apply text-center font-normal not-italic;
+  }
+  article blockquote p:first-of-type::before,
+  article blockquote p:first-of-type::after {
+    @apply content-none;
+  }
+  article p code {
+    @apply px-1.5 py-1 text-white bg-black rounded font-normal before:content-none after:content-none font-['Montserrat'];
+  }
+  article pre {
+    @apply bg-transparent border border-black rounded-none !important;
+  }
+  article pre code span {
+    @apply font-['Montserrat'];
+  }
+  article hr {
+    @apply border-black;
+  }
+  article li::marker {
+    @apply text-black;
+  }
+</style>
+
+<script>
+  import LocomotiveScroll from 'locomotive-scroll';
+  const locomotiveScroll = new LocomotiveScroll();
+</script>

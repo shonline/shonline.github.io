@@ -1,0 +1,89 @@
+---
+import { getCollection } from 'astro:content';
+const collection = await getCollection('collection');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>collection</title>
+  </head>
+  <body class="font-['Montserrat'] flex flex-col justify-between items-center">
+    <header
+      class="min-h-[5vh] bg-black z-10 fixed w-full hidden sm:flex flex-col justify-center items-center px-[5vmax]"
+    >
+      <div class="flex justify-between items-center w-full flex-wrap">
+        <a
+          href="/"
+          class="text-white text-2xl font-['Viaoda_libre'] select-none"
+        >
+          Юрий Шилов
+        </a>
+      </div>
+    </header>
+    <section class="size-full py-[15vh]">
+      <h1 class="font-['Viaoda_Libre'] text-5xl text-center p-12">
+        collection
+      </h1>
+      <section class="w-[min(100%,700px)] mx-auto flex flex-col gap-16 p-10">
+        {
+          collection &&
+            collection.map((entry) => (
+              <a
+                class="flex flex-col gap-1.5"
+                href={`/collection/${entry.slug}`}
+              >
+                {entry.data.date && (
+                  <time class="opacity-35 text-[0.77em]">
+                    {new Date(entry.data.date).toLocaleDateString('en-GB')}
+                  </time>
+                )}
+                {entry.data.tag && (
+                  <div class="flex flex-wrap gap-1">
+                    {entry.data.tag.map((tag) => (
+                      <div class="text-[0.7em] px-1.5 py-1 text-white bg-black rounded">
+                        {tag}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div class="text-[1.3em]">
+                  {entry.data.title ? entry.data.title : entry.slug}
+                </div>
+                {entry.data.description && (
+                  <div class="text-[0.9em] opacity-50">
+                    {entry.data.description}
+                  </div>
+                )}
+                {entry.data.author && (
+                  <div class="flex flex-wrap opacity-50 text-[0.9em] italic">
+                    {entry.data.author.map((author) => (
+                      <span>{author}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    ))}
+                  </div>
+                )}
+              </a>
+            ))
+        }
+      </section>
+    </section>
+  </body>
+</html>
+
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Viaoda+Libre&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  ::selection {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+</style>
+
+<script>
+  import LocomotiveScroll from 'locomotive-scroll';
+  const locomotiveScroll = new LocomotiveScroll();
+</script>

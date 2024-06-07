@@ -142,7 +142,7 @@ export default function App() {
     >
       <motion.header
         style={{
-          minHeight: useTransform(scrollY, [0, 300], ['10vmin', '5vmin']),
+          minHeight: useTransform(scrollY, [0, 300], ['10vh', '5vh']),
           backdropFilter: useTransform(
             scrollY,
             [0, 300],
