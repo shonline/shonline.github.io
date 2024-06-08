@@ -22,6 +22,12 @@ const person = await getEntry('persons', 'shilov');
         >
           {person?.data?.name}
         </a>
+        <a
+          href={person.data.links[0].link}
+          class="text-white text-center font-light block transition hover:bg-white hover:text-black px-1.5"
+        >
+          {person.data.links[0].title}
+        </a>
       </div>
     </header>
     <section class="size-full py-[15vh]">
