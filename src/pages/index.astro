@@ -1,5 +1,8 @@
 ---
-import Page from './_page';
+import { getCollection, getEntry } from 'astro:content';
+const main = await getCollection('main');
+const person = await getEntry('persons', 'shilov');
+import Hero from './_hero';
 ---
 
 <!doctype html>
@@ -7,10 +10,69 @@ import Page from './_page';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Юрий Шилов</title>
+    <title>{person?.data?.name}</title>
   </head>
-  <body class="bg-black">
-    <Page client:only="react" />
+  <body class="font-['Montserrat'] bg-black">
+    <Hero
+      client:only="react"
+      image={person?.data?.image}
+      contacts={person?.data?.links}
+      headerlink={person?.data?.links[0]}
+      headertitle={person?.data?.name}
+      title={person?.data?.name}
+      subtitle={person?.data?.idea}
+      links={main.filter((entry) => entry?.data?.visibility?.hero)}
+    />
+    <main class="flex flex-col bg-white px-[5vmax] divide-y">
+      {
+        main &&
+          main
+            .filter((entry) => entry?.data?.visibility?.main)
+            .map((entry) => (
+              <section
+                id={entry.slug}
+                class="flex flex-col gap-12 py-[5vmax] justify-evenly h-full w-full"
+              >
+                {entry.data.title && (
+                  <div
+                    class="text-[clamp(1.7rem,9vmin,7rem)] font-['Viaoda_Libre']"
+                    data-scroll
+                    data-scroll-speed="-0.03"
+                  >
+                    {entry.data.title}
+                  </div>
+                )}
+                {entry.data.description &&
+                  entry.data.description.map((description) => (
+                    <div class="font-light text-[clamp(0.9rem,3vmin,1.5rem)]">
+                      {description}
+                    </div>
+                  ))}
+              </section>
+            ))
+      }
+      {
+        person && (
+          <section
+            id="contacts"
+            class="flex flex-col gap-12 py-[5vmax] justify-evenly h-full w-full"
+          >
+            <section class="flex flex-col border-l border-black">
+              {person?.data?.links?.map((contact) => (
+                <div>
+                  <a
+                    href={contact.link}
+                    class="block px-[1vmax] transition text-black hover:bg-black hover:text-white font-thin text-[clamp(1.5rem,5vmin,5rem)]"
+                  >
+                    {contact.title}
+                  </a>
+                </div>
+              ))}
+            </section>
+          </section>
+        )
+      }
+    </main>
   </body>
 </html>
 
