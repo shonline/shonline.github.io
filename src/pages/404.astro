@@ -1,3 +1,8 @@
+---
+import { getEntry } from 'astro:content';
+const person = await getEntry('persons', 'shilov');
+---
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -11,7 +16,7 @@
     >
       <div class="flex justify-between items-center w-full flex-wrap">
         <a href="/" class="text-2xl font-['Viaoda_libre'] select-none">
-          Юрий Шилов
+          {person?.data?.name}
         </a>
       </div>
     </header>

@@ -1,6 +1,7 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 const collection = await getCollection('collection');
+const person = await getEntry('persons', 'shilov');
 ---
 
 <!doctype html>
@@ -19,7 +20,7 @@ const collection = await getCollection('collection');
           href="/"
           class="text-white text-2xl font-['Viaoda_libre'] select-none"
         >
-          Юрий Шилов
+          {person?.data?.name}
         </a>
       </div>
     </header>
