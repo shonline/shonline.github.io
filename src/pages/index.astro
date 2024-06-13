@@ -3,6 +3,7 @@ import { getCollection, getEntry } from 'astro:content';
 const main = await getCollection('main');
 const person = await getEntry('persons', 'shilov');
 import Hero from './_hero';
+import image from '../background.png';
 ---
 
 <!doctype html>
@@ -15,7 +16,7 @@ import Hero from './_hero';
   <body class="font-['Montserrat'] bg-black">
     <Hero
       client:only="react"
-      image={person?.data?.image}
+      image={image.src}
       contacts={person?.data?.links}
       headerlink={person?.data?.links[0]}
       headertitle={person?.data?.name}
