@@ -7,4 +7,9 @@ import mdx from '@astrojs/mdx';
 export default defineConfig({
   integrations: [tailwind(), react(), mdx()],
   site: 'https://xn--b1aladlsj0e7b.xn--p1ai',
+  markdown: {
+    remarkRehype: {
+      footnoteLabel: ' ',
+    },
+  },
 });
